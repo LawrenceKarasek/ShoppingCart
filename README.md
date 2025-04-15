@@ -44,6 +44,7 @@
 # Running the app
 
 - prequisite: Docker is running
+- node v20
 - no other apps running on localhost:3000 or localhost: 4200
 
 - Dev start frontend, backend and database: 
