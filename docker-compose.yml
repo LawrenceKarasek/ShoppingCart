@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  # Backend app
+  backend:
+    build: ./backend
+    command: ["bash", "/wait-for-it.sh", "postgres:5432", "--", "node", "dist/main"]
+    env_file:
+      - ./backend/.env
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: admin
+      DB_PASSWORD: admin
+      DB_NAME: shorturl
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+
+  # Postgres database
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: shorturl
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  # Frontend app
+  frontend:
+    build: ./frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
