@@ -8,23 +8,22 @@
 ## Additional Features
 
 - Nestjs is used on the backend to provide a robust and scalable framework and patterns
-- To make it more realistic, product data is populate in the database on start up into a product table which is referenced from the shopping cart.
+- To make it more realistic, product data is seeded into in the database on start up into a product table which is referenced from the shopping cart.
+- Since there are no user requirements for different shopping carts, a default static cart is seeded into in the database on start up and referenced in the front end
 - Consistent styling with re-usable components using typescript generics
-- User-friendly errors and logging related 
+- User-friendly error-handling, display and logging 
 
 ## Additional Libraries
 
-- Front end: tailwindcss, debounce, axios, prettier, eslint
-
-- Back end: 
-- As part of the auth implementation described below, the following libraries are used:
--   jsonwebtoken: used for auth implementation for storing/verifying cookies
--   bcrypt: usd for hashing passwords to store security as part of auth implementation
-
+- Front end: StyledComponents, axios, prettier, eslint
+- Back end: Nesetjs, TypeORM
 
 # Running the app
 
 ## run in dev mode 
+
+### UI start prequisites: 
+- postgres installed and running on port 5432
 - create the required psql account to run ShoppingCart db locally (not required for Docker):
 
 `psql -h localhost -p 5432 -U youradminaccount -d  postgres`
@@ -34,20 +33,19 @@
 - Check the new acount is created:
 `\du`
 
-- prequisites: 
 - node v20 +
 - no other apps running on localhost:3000 or localhost: 4200
-
 - Dev start frontend, backend and database: 
 - From root, frontend and backend: `npm install` 
 - From the root of the project: `npm run start` 
+- Frontend URL: localhost: 4200
+- BackendURL: localhost:3000 
 
 ## Run in Docker
 - prequisite: Docker is running
 - Docker start frontend, backend and database: 
 - From the root of the project: `docker compose up --build `
 - If redeploying/restarting containers, first run: `docker compose down`
-
 
 # Project Structure:Front End
 
