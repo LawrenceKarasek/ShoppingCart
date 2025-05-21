@@ -1,16 +1,16 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import URLManager from './components/URLManager'
-import Redirect from './components/Redirect'
-import './App.css'
+import CartList from './components/CartList'
+import ErrorBoundary from './ErrorBoundary'
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<URLManager />}></Route>
-        <Route path="/:shortURL" element={<Redirect />}></Route>
-      </Routes>
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<CartList />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </ErrorBoundary>
   )
 }
 

@@ -1,35 +1,16 @@
-#  Requirements
-- Build a React application that allows you enter a URL
-- When the form is submitted, return a shortened version of the URL
-- Save a record of the shortened URL to a database
-- Ensure the slug of the URL (abc123 in the screenshot above) is unique
-- When the shortened URL is accessed, redirect to the stored URL
-- If an invalid slug is accessed, display a 404 Not Found page
-- You should have a list of all URLs saved in the database
-- Add support for accounts so people can view the URLs they have created
-- Validate the URL provided is an actual URL
-- Display an error message if invalid
-- Make it easy to copy the shortened URL to the clipboard
-- Allow users to modify the slug of their URL
-- Track visits to the shortened URL
-- Add rate-limiting to prevent bad-actors
-- Add a dashboard showing how popular your URLs are
-- Build a Docker image of your application
+
 
 # Implementation Overview
 
-- Monorepo, front end using React/Typescript/Tailwindcss and back end using NestJS/Node with postgreSQL database
-- Docker deployment 
+- Monorepo, frontend using React/Typescript/StyleComponents and backend using NestJS/Node with postgreSQL database
+- Runs in localhost and Docker 
 
 ## Additional Features
 
-- User Accounts implemented using Login/Registration using JWT 
-- NestJS endpoints secured using middleware with JWT
-- Consistent styling with re-usable components
-- Inline user editing/validation/updating of short names using debounce
-- User-friendly errors and logging related to 404 Errors, duplicate/invalid short name, invalid domain name or invalid/already registered credentials
-- Copying: user notification is displayed in bottom right with timeout
-- Rate limiting implemented using customizable time segment: rate minutes
+- Nestjs is used on the backend to provide a robust and scalable framework and patterns
+- To make it more realistic, product data is populate in the database on start up into a product table which is referenced from the shopping cart.
+- Consistent styling with re-usable components using typescript generics
+- User-friendly errors and logging related 
 
 ## Additional Libraries
 
@@ -43,20 +24,30 @@
 
 # Running the app
 
-- prequisite: Docker is running
-- node v20
+## run in dev mode 
+- create the required psql account to run ShoppingCart db locally (not required for Docker):
+
+`psql -h localhost -p 5432 -U youradminaccount -d  postgres`
+
+`CREATE USER shoppingcart_admin WITH PASSWORD 'shoppingcart_pwd';`
+`ALTER USER shoppingcart_admin WITH CREATEDB;`
+- Check the new acount is created:
+`\du`
+
+- prequisites: 
+- node v20 +
 - no other apps running on localhost:3000 or localhost: 4200
 
 - Dev start frontend, backend and database: 
-- From frontend and backend: `npm install` 
+- From root, frontend and backend: `npm install` 
 - From the root of the project: `npm run start` 
 
+## Run in Docker
+- prequisite: Docker is running
 - Docker start frontend, backend and database: 
 - From the root of the project: `docker compose up --build `
-- If redeploying/restarting containers, first run: `docker compose down -v --remove-orphans`
+- If redeploying/restarting containers, first run: `docker compose down`
 
-- Register/Login:
-- Since auth is implemented a login is required: register using any properly formatted email and password (not validated)
 
 # Project Structure:Front End
 
@@ -66,7 +57,7 @@
 
 ##  src/api
 
-- This contains code for managing the asyncnronous requesting and loading of data from the api, for URLs and Users
+- This contains code for managing the asyncnronous requesting and loading of data from the api
 
 ## src/ui
 
@@ -74,30 +65,23 @@
 
 ## src/types
 
-- This contains types for URL and User.
+- This contains typescript types.
 
 # Project Structure:Back End
+- Using the Express/Nestjs framework
 
 ## modules/app
 
-- Configuration information for module types and middleware using JWT
+- Configuration information for module types
 
 ## modules/database
 
 - Entity definitions, database configuration and module configuration
 
-## modules/short-name
+## modules/cart
 
-- Module service for generating and storing unique short-names
+- Module, controller and service for endpoint access and CRUD operations for shopping cart data including cart_item entities and related products
 
 ## modules/tracker
 
-- Module for managing logs for URL short access, including storage and rate limiting 
-
-## modules/url
-
-- Module for managing creation, editing and fetching of URL short names
-
-## modules/user
-
-- Module for managing registering, logging in and logging out
+- Module, controller and service for endpoint access and storing product data 

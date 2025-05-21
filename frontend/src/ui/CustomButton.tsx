@@ -1,28 +1,60 @@
+import styled from 'styled-components'
+
+const CustomButtonDiv = styled.button`
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  padding: 8px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: 'Dosis', 'Nunito', sans-serif;
+
+  &:hover {
+    background: #1565c0;
+  }
+`
+
+const CancelButtonDiv = styled.button`
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 8px 16px;
+  &:hover {
+    text-decoration: underline;
+  }
+`
+
 export type CustomButtonProps = {
-  text: string
   onClick?: () => void
-  disabled?: boolean
-  type?: 'button' | 'submit' | 'reset'
+  isSubmit?: boolean
+  text: string
+  isCancel?: boolean
 }
 
 const CustomButton = ({
+  isCancel,
   text,
+  isSubmit,
   onClick,
-  disabled = false,
-  type = 'button',
 }: CustomButtonProps) => {
   return (
-    <button
-      onClick={onClick}
-      type={type}
-      className={`px-4 py-2 text-white font-semibold border-2 rounded-md ${
-        disabled
-          ? 'bg-[#cbc8f3] cursor-not-allowed border-[#cbc8f3]'
-          : 'bg-[#6355F0] hover:bg-[#7a6df0] cursor-pointer border-[#6355F0] hover:border-[#7a6df0]'
-      }`}
-    >
-      {text}
-    </button>
+    <>
+      {isCancel ? (
+        <CancelButtonDiv onClick={onClick}>{text}</CancelButtonDiv>
+      ) : (
+        <CustomButtonDiv
+          type={isSubmit ? 'submit' : 'button'}
+          onClick={onClick}
+        >
+          {text}
+        </CustomButtonDiv>
+      )}
+    </>
   )
 }
 

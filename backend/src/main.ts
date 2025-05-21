@@ -1,7 +1,7 @@
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-
+import { ProductSeederService } from './modules/seeders/product-seeder-service';
 import { startDatabase } from './modules/database/db';
 import { AppModule } from './modules/app/app.module';
 import * as cookieParser from 'cookie-parser';
@@ -14,6 +14,9 @@ async function bootstrap() {
 
   await startDatabase();
   const app = await NestFactory.create(AppModule);
+
+  const productSeeder = app.get(ProductSeederService);
+  await productSeeder.seedProducts();
 
   app.use(cookieParser()); // Enable cookie-parser middleware
 

@@ -6,4 +6,4 @@ Dockerfile
 .dockerignore
 .git
 .gitignore
-.env
+#.env this is needed to deploy docker and access env vars

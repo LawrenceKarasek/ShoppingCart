@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import tailwind from '@tailwindcss/vite'
 
 export default defineConfig({
   root: __dirname,
@@ -17,7 +16,6 @@ export default defineConfig({
   },
   plugins: [
     react(),
-    tailwind(), // Use the official Tailwind Vite plugin
   ],
 
   build: {
