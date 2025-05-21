@@ -7,6 +7,7 @@
 
 ## Additional Features
 
+- Docker deployment configured and tested
 - Nestjs is used on the backend to provide a robust and scalable framework and patterns
 - To make it more realistic, product data is seeded into in the database on start up into a product table which is referenced from the shopping cart.
 - Since there are no user requirements for different shopping carts, a default static cart is seeded into in the database on start up and referenced in the front end
